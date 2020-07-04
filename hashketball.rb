@@ -125,5 +125,110 @@ def game_hash
     }
   }
 end
-
-# Write code here
+require './hashketball.rb'
+def num_points_scored(input)
+  
+  score = ""
+  game_hash.each do |team, extra_info|
+    extra_info[:players].each do |member|
+      if member[:player_name] == input
+        score = member[:points]
+      end
+    end 
+  end 
+  score 
+ end 
+ 
+ def shoe_size(input)
+   shoesize = ""
+   game_hash.each do |team, extra_info|
+     extra_info[:players].each do |member|
+       if member[:player_name] == input
+         shoesize = member[:shoe]
+       end
+     end
+   end
+   shoesize 
+ end 
+ 
+ def team_colors(teamname)
+   game_hash.each do |team, extra_info|
+     if extra_info[:team_name] == teamname
+       return extra_info[:colors]
+     end
+   end
+ end 
+ 
+ def team_names
+   name_array = []
+   game_hash.each do |team, extra_info|
+     name_array << extra_info[:team_name]
+   end
+   name_array
+ end 
+ 
+ def player_numbers(teamname)
+   number_array = []
+   game_hash.each do |team, extra_info|
+     if extra_info[:team_name] == teamname
+       extra_info[:players].each do |player, info|
+         number_array << player[:number]
+       end
+     end
+   end
+   number_array
+ end 
+ 
+ def player_stats(player)
+   return_info = {}
+   game_hash.each do |team, extra_info|
+    extra_info[:players].each do |member|
+      if member[:player_name] == player
+        return_info = member
+      end
+    end 
+  end 
+  return_info 
+ end 
+ 
+ def big_shoe_rebounds
+   size = 0 
+   points = ""
+   game_hash.each do |team, extra_info|
+     extra_info[:players].each do |member|
+       if member[:shoe] > size 
+         size = member[:shoe]
+         points = member[:rebounds]
+       end
+     end
+   end
+   points
+ end 
+ 
+ def most_points_scored
+   points = 0
+   mvp = ""
+   game_hash.each do |team, extra_info|
+     extra_info[:players].each do |member|
+       if member[:points]> points
+         points = member[:points]
+         mvp = member[:player_name]
+       end
+     end
+   end
+   mvp
+ end 
+ 
+ def winning_team
+   team1 = 0
+   team2 = 0
+   game_hash[:home][:players].each do |member|
+     team1 += member[:points]
+   end
+   game_hash[:away][:players].each do |member|
+     team2 += member[:points]
+   end
+   team1 > team2 ? team1 : team2
+ end 
+ 
+ 
